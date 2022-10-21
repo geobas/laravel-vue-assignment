@@ -3,11 +3,11 @@ import store from '@/store/index.js';
 
 describe ('Todo store', () => {
     beforeEach (() => {
-        store.state.todos = [
+        store.commit('setTodos', [
             { body: "dummy", done: true, id: 1},
             { body: "akis", done: false, id: 2},
             { body: "testakis", done: true, id: 3}
-        ];
+        ]);
     });
 
     it ('defaults to three todos', () => {
@@ -25,6 +25,11 @@ describe ('Todo store', () => {
     it ('deletes a todo', () => {
         store.commit('deleteTodo', {id: 1});
         expect(store.state.todos).to.have.lengthOf(2);
+    });
+
+    it ('toggles a todo', () => {
+        store.commit('toggleTodo', {id: 3});
+        expect(store.state.todos[1].done).to.be.false;
     });
 
     it ('completes all todos', () => {
