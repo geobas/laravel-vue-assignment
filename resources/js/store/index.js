@@ -1,5 +1,9 @@
 import { createStore } from 'vuex';
 
+function getTodoIndex(state, todo) {
+    return state.todos.findIndex(item => item.id === todo.id);
+}
+
 export default createStore({
     state: {
         todos: [],
@@ -15,11 +19,11 @@ export default createStore({
         },
 
         deleteTodo(state, todo) {
-            state.todos.splice(state.todos.indexOf(todo), 1);
+            state.todos.splice(getTodoIndex(state, todo), 1);
         },
 
         toggleTodo(state, todo) {
-            state.todos[state.todos.indexOf(todo)].done = ! state.todos[state.todos.indexOf(todo)].done;
+            state.todos[getTodoIndex(state, todo)].done = ! state.todos[getTodoIndex(state, todo)].done;
         },
 
         addTodo({ todos }, { body, id }) {

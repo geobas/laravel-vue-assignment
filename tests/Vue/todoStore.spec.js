@@ -23,7 +23,7 @@ describe ('Todo store', () => {
     });
 
     it ('deletes a todo', () => {
-        store.commit('deleteTodo');
+        store.commit('deleteTodo', {id: 1});
         expect(store.state.todos).to.have.lengthOf(2);
     });
 
