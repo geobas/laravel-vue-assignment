@@ -2,6 +2,7 @@
 version: '3'
 services:
     laravel.test:
+        container_name: laravel-vue-assignment
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
             dockerfile: Dockerfile
