@@ -42,6 +42,15 @@ export default createStore({
     },
 
     actions: {
+        // async fetchTodos({ commit }) {
+        //     try {
+        //         let result = await axios.get('/todos');
+        //         commit('setTodos', result.data);
+        //     } catch(error) {
+        //         console.log('Error:', error.message);
+        //     }
+        // },
+
         fetchTodos({ commit }) {
             axios.get('/todos')
                 .then(({ data }) => commit('setTodos', data))

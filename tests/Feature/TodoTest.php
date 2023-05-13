@@ -2,14 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TodoTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -75,12 +72,12 @@ class TodoTest extends TestCase
      */
     public function toggle_todo_done(): void
     {
-        $doneTodo = $this->getJson('/todos')->original->where('done', true)->first();
+        $doneTodo = $this->getJson('/todos')->collect()->where('done', true)->first();
 
-        $this->put('/todos/'. $doneTodo->id)
+        $this->put('/todos/'. $doneTodo['id'])
             ->assertOK();
 
-        $this->assertEquals(0, $this->getJson('/todos')->original->where('id', $doneTodo->id)->first()->done);
+        $this->assertEquals(0, $this->getJson('/todos')->collect()->where('id', $doneTodo['id'])->first()['done']);
     }
 
     /**
@@ -95,6 +92,6 @@ class TodoTest extends TestCase
 
         $response = $this->getJson('/todos')->assertJsonCount(5);
 
-        $response->assertJsonMissingExact(['id' => 1]);
+        $response->assertJsonMissingExact(['id' => $todo->id]);
     }
 }
